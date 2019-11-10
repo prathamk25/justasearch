@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+    <button class="navbar-toggler hidden-sm-up" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
+        <ul class="navbar-nav mr-auto ul-margin">              
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-outline-primary sort-button">
+                        Sort By Name
+                        <span class="sort-icon"></span>
+                    </button>
+                </div>
+                <div class="col">
+                    <div class="form-group has-search">
+                        <span class="fa fa-search form-control-feedback"></span>
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </div>
+</nav>
