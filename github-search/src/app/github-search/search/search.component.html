@@ -1,6 +1,6 @@
 <div class="search-container">
     <div class="search-toolbar">   
-        <app-toolbar (searchChanged)="onSearchChanged()"></app-toolbar>
+        <app-toolbar (searchChanged)="onSearchChanged($event)" (sortChanged)="onSortChanged($event)"></app-toolbar>
     </div>
     <div class="search-result">
         <app-result [searchResult]="searchResult"></app-result>

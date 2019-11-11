@@ -1,17 +1,14 @@
 <div *ngIf="searchResult">
-    <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
-        <ngb-panel id="custom-panel-1" *ngFor="let item of searchResult.Items | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-            <ng-template ngbPanelHeader let-opened="opened">
-                <div class="d-flex align-items-center justify-content-between">
-                    <h5 class="m-0">{{item.Login}}</h5>           
-                </div>
-            </ng-template>            
-            <ng-template ngbPanelContent>
-                <img [src]="item.Avatar" alt="Place image title">
-                {{item.Score}}            
-            </ng-template>            
-        </ngb-panel>        
-    </ngb-accordion>
+    <div *ngFor="let item of searchResult.Items | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+        <div class="user-card">
+            <img class="user-avatar" [src]="item.Avatar" alt="Place image title">
+            <h5 class="user-name">{{item.Login}}</h5>            
+        </div>
+        <div>
+            <h6>Score: {{item.Score}}</h6>
+            <h6>Url: {{item.Url}}</h6>
+        </div>
+    </div>
     <ngb-pagination
             [(page)]="page"
             [pageSize]="pageSize"

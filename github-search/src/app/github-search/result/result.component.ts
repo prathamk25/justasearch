@@ -4,13 +4,12 @@ import { IUserResult } from '../iuser-result';
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',
-  styleUrls: ['./result.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./result.component.scss']
 })
 export class ResultComponent implements OnInit {
   @Input() searchResult: IUserResult;
 
-  pageSize = 10;
+  pageSize = 3;
   page = 1;
 
   constructor() { }

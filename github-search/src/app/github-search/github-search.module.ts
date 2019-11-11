@@ -20,7 +20,8 @@ import { ResultComponent } from './result/result.component';
     FormsModule,
     HttpClientModule,
     NgbAccordionModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    NgbDropdownModule
   ],
   providers: [
     GithubSearchService

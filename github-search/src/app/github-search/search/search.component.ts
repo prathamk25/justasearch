@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { GithubSearchService } from 'src/app/github-search.service';
 import { IUserResult } from '../iuser-result';
+import { ISortItem } from '../isort-item';
 
 @Component({
   selector: 'app-search',
@@ -18,14 +19,25 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSearchChanged() {
-    this.searchSubscription = this.searchService.fetchUsers()
-      .subscribe(results => {
-        this.searchResult = results;
-        if (this.searchSubscription) {
-          this.searchSubscription.unsubscribe();
-        }
-      });
+  onSearchChanged(hasSearch: boolean) {
+    if(hasSearch){
+      this.searchSubscription = this.searchService.fetchUsers()
+        .subscribe(results => {
+          this.searchResult = results;
+          if (this.searchSubscription) {
+            this.searchSubscription.unsubscribe();
+          }
+        });
+    }
+    else{
+      this.searchResult = null;
+    }
+  }
+
+  onSortChanged(sortValue: ISortItem){
+    if(this.searchResult){
+      this.searchResult.Items = this.searchService.getSortResult(this.searchResult.Items, sortValue);
+    }
   }
 
 }

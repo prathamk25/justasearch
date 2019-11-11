@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { map, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { IUserResult } from './github-search/iuser-result';
 import { IUserResultItem } from './github-search/iuser-result-item';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { ISortItem } from './github-search/isort-item';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +49,53 @@ export class GithubSearchService {
       Score: item.score,
       Url: item.url
     }));
+  }
+
+  getSortValues(): ISortItem[]{
+    return [
+      {
+        Name: 'Select Sort',
+        Class: '',
+        Value: '',
+        Order: ''
+      },
+      {
+        Name: 'Sort By Name',
+        Class: 'sort-asc',
+        Value: 'Login',
+        Order: 'asc'
+      },
+      {
+        Name: 'Sort By Name',
+        Class: 'sort-desc',
+        Value: 'Login',
+        Order: 'desc'
+      },
+      {
+        Name: 'Sort By Score',
+        Class: 'sort-asc',
+        Value: 'Score',
+        Order: 'asc'
+      },
+      {
+        Name: 'Sort By Score',
+        Class: 'sort-desc',
+        Value: 'Score',
+        Order: 'desc'
+      }
+    ]
+  }
+
+  getSortResult(records: IUserResultItem[], sortValue: ISortItem){
+    return records.sort((val1, val2) => {
+      let comparison = 0;
+      if(val1[sortValue.Value] > val2[sortValue.Value]){
+        comparison = 1;
+      }
+      else if(val1[sortValue.Value] < val2[sortValue.Value]){
+        comparison = -1;
+      }
+      return sortValue.Order === 'desc' ? (comparison * -1) : comparison;      
+    })
   }
 }
