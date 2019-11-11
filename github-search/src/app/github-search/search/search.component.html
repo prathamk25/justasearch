@@ -1,3 +1,8 @@
-<div class="search-toolbar">
-    <app-toolbar></app-toolbar>    
+<div class="search-container">
+    <div class="search-toolbar">   
+        <app-toolbar (searchChanged)="onSearchChanged()"></app-toolbar>
+    </div>
+    <div class="search-result">
+        <app-result [searchResult]="searchResult"></app-result>
+    </div>
 </div>

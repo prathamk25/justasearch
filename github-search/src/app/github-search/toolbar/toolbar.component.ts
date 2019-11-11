@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { GithubSearchService } from 'src/app/github-search.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,9 +9,18 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  @Output() searchChanged = new EventEmitter();
+
+  constructor(private service: GithubSearchService) { }
 
   ngOnInit() {
+  }
+
+  onSearchChanged(searchText: string) {
+    if (searchText && searchText !== ''){
+      this.service.searchChanged$.next(searchText);
+      this.searchChanged.emit('');
+    }
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { GithubSearchService } from 'src/app/github-search.service';
+import { IUserResult } from '../iuser-result';
 
 @Component({
   selector: 'app-search',
@@ -9,14 +10,21 @@ import { GithubSearchService } from 'src/app/github-search.service';
   providers: [GithubSearchService]
 })
 export class SearchComponent implements OnInit {
-  searchTerm$ = new Subject<string>();
+  searchResult: IUserResult;
+  searchSubscription: Subscription;
   constructor(private searchService: GithubSearchService) {
   }
 
   ngOnInit() {
-    this.searchService.fetchUsers(this.searchTerm$)
+  }
+
+  onSearchChanged() {
+    this.searchSubscription = this.searchService.fetchUsers()
       .subscribe(results => {
-        console.log(results);
+        this.searchResult = results;
+        if (this.searchSubscription) {
+          this.searchSubscription.unsubscribe();
+        }
       });
   }
 
