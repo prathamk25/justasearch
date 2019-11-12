@@ -1,18 +1,25 @@
 <div *ngIf="searchResult">
-    <div *ngFor="let item of searchResult.Items | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-        <div class="user-card">
-            <img class="user-avatar" [src]="item.Avatar" alt="Place image title">
-            <h5 class="user-name">{{item.Login}}</h5>            
+    <div class="result-container">
+        <div class="user-card" *ngFor="let item of searchResult.Items | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+            <img class="user-avatar" [src]="item.Avatar" alt="Place image title"/>
+            <div class="user-content">                
+                <h4>{{item.Login}}</h4>
+                    <div>
+                        <h6>Score: {{item.Score}}</h6>
+                        <h6>Url: {{item.Url}}</h6>
+                    </div>
+                <button (click)="onShowDetails(item)">Show Details</button>
+                <div *ngIf="showDetails">
+                    <div>Detail 1</div>
+                    <div>Detail 2</div>
+                </div>
+            </div>            
         </div>
-        <div>
-            <h6>Score: {{item.Score}}</h6>
-            <h6>Url: {{item.Url}}</h6>
-        </div>
+        <ngb-pagination
+                [(page)]="page"
+                [pageSize]="pageSize"
+                [maxSize]="10"
+                [boundaryLinks]="true"
+                [collectionSize]="searchResult.Items.length"></ngb-pagination>
     </div>
-    <ngb-pagination
-            [(page)]="page"
-            [pageSize]="pageSize"
-            [maxSize]="10"
-            [boundaryLinks]="true"
-            [collectionSize]="searchResult.Items.length"></ngb-pagination>  
 </div>
