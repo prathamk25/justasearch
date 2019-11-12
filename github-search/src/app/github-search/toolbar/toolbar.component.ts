@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { GithubSearchService } from 'src/app/github-search.service';
 import { ISortItem } from '../isort-item';
 
@@ -8,7 +8,7 @@ import { ISortItem } from '../isort-item';
   styleUrls: ['./toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, OnDestroy {
   sortValues: ISortItem[];
   selectedSort: string;
   hasSearch: boolean;
@@ -36,6 +36,10 @@ export class ToolbarComponent implements OnInit {
   onSortChanged(sort: ISortItem){
     this.selectedSort = sort.Name;
     this.sortChanged.emit(sort);
+  }
+
+  ngOnDestroy(){
+    this.sortValues = null;
   }
 
 }

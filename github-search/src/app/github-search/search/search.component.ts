@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { GithubSearchService } from 'src/app/github-search.service';
 import { IUserResult } from '../iuser-result';
 import { ISortItem } from '../isort-item';
@@ -10,7 +10,7 @@ import { ISortItem } from '../isort-item';
   styleUrls: ['./search.component.scss'],
   providers: [GithubSearchService]
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   searchResult: IUserResult;
   searchSubscription: Subscription;
   constructor(private searchService: GithubSearchService) {
@@ -38,6 +38,13 @@ export class SearchComponent implements OnInit {
     if(this.searchResult){
       this.searchResult.Items = this.searchService.getSortResult(this.searchResult.Items, sortValue);
     }
+  }
+
+  ngOnDestroy(){
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+    this.searchResult = null;
   }
 
 }

@@ -9,16 +9,20 @@
                         <h6>Url: {{item.Url}}</h6>
                     </div>
                 <button (click)="onShowDetails(item)">Show Details</button>
-                <div *ngIf="showDetails">
-                    <div>Detail 1</div>
-                    <div>Detail 2</div>
+                <div *ngIf="item.Selected">
+                    <ng-container *ngIf="repoResult">
+                        <div class="repo-display" *ngFor="let repoItem of repoResult[item.Id];">                        
+                            <div class="repo-name">{{repoItem.Name}}</div>
+                            <div class="lang-desc">{{repoItem.Language || repoItem.Description}}</div>
+                        </div>
+                    </ng-container>
                 </div>
             </div>            
         </div>
         <ngb-pagination
                 [(page)]="page"
                 [pageSize]="pageSize"
-                [maxSize]="10"
+                [maxSize]="5"
                 [boundaryLinks]="true"
                 [collectionSize]="searchResult.Items.length"></ngb-pagination>
     </div>

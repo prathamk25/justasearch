@@ -5,4 +5,5 @@ export interface IUserResultItem {
     Avatar: string;
     Type: string;
     Score: number;
+    Selected: boolean;
 }
