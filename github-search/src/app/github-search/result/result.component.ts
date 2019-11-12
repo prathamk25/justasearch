@@ -23,8 +23,8 @@ export class ResultComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-  onShowDetails(item: IUserResultItem){    
-    if(!item.Selected){
+  onShowDetails(item: IUserResultItem){
+    if(!item.Selected) {
       item.Selected = true;
       this.repoSubscription = this.service.fetchRepos(item.Login).subscribe((result: IRepoItem[]) => {
         this.repoResult[item.Id] = result;
@@ -32,9 +32,8 @@ export class ResultComponent implements OnInit, OnDestroy {
         if(this.repoSubscription){
           this.repoSubscription.unsubscribe();
         }
-      })
-    }
-    else{
+      });
+    } else{
       item.Selected = false;
     }
   }

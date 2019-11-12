@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   onSearchChanged(hasSearch: boolean) {
-    if(hasSearch){
+    if (hasSearch) {
       this.searchSubscription = this.searchService.fetchUsers()
         .subscribe(results => {
           this.searchResult = results;
@@ -28,8 +28,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             this.searchSubscription.unsubscribe();
           }
         });
-    }
-    else{
+    } else {
       this.searchResult = null;
     }
   }
